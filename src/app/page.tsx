@@ -9,7 +9,7 @@ export default function Home() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <Link
               href="https://github.com/mgeovany/store-env"
-              className="text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-zinc-100/30 duration-150"
+              className="text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-orange-500/100 duration-150"
             >
               EnvStore is being developed by mgeovany on{" "}
               <span className="font-semibold text-zinc-200">
