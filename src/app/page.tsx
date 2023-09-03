@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SignInButton } from "./component/shared/signIn";
+import { SignInButton } from "./components/shared/signIn";
 
 export default function Home() {
   return (

@@ -8,7 +8,7 @@ import {
   useMemo,
 } from "react";
 import { Modal } from "../shared";
-import { Google, LoadingCircle } from "../shared/icons";
+import { GithubIcon, LoadingCircle } from "../shared/icons";
 
 const SignInModal = ({
   showSignInModal,
@@ -46,8 +46,8 @@ const SignInModal = ({
               <LoadingCircle />
             ) : (
               <>
-                <Google className="h-5 w-5" />
-                <p>Sign In with Google</p>
+                <GithubIcon className="h-6 w-6" />
+                <p>Sign In with Github</p>
               </>
             )}
           </button>
