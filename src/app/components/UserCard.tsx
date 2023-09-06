@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type User =
   | {
@@ -20,14 +21,16 @@ export default function Card({ user }: Props) {
   ) : null;
 
   const userImage = user?.image ? (
-    <Image
-      className="rounded-full mx-auto mt-5 ring-1 ring-orange-500/100 duration-150"
-      src={user?.image}
-      width={150}
-      height={150}
-      alt={user?.name ?? "Profile Pic"}
-      priority={true}
-    />
+    <Link href={"/user"}>
+      <Image
+        className="rounded-full mx-auto mt-5 ring-1 ring-orange-500/100 duration-150"
+        src={user?.image}
+        width={150}
+        height={150}
+        alt={user?.name ?? "Profile Pic"}
+        priority={true}
+      />
+    </Link>
   ) : null;
 
   return (
