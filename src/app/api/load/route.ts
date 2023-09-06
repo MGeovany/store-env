@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
 const redis = Redis.fromEnv();
-export default async function handler(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
   if (!id) {
     return new NextResponse("id param is missing", { status: 400 });
   }
-  const key = ["envshare", id].join(":");
+  const key = ["storeenv", id].join(":");
 
   const [data, _] = await Promise.all([
     await redis.hgetall<{
@@ -16,7 +16,7 @@ export default async function handler(req: NextRequest) {
       remainingReads: number | null;
       iv: string;
     }>(key),
-    await redis.incr("envshare:metrics:reads"),
+    await redis.incr("storeenv:metrics:reads"),
   ]);
   if (!data) {
     return new NextResponse("Not Found", { status: 404 });
