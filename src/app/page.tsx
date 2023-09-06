@@ -3,7 +3,7 @@ import { SignInButton } from "./components/shared/signIn";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/option";
 import UserCard from "./components/UserCard";
-import { ShareButton } from "./components/shareButton";
+import { ShareButton } from "./components/ShareButton";
 
 export default async function Home() {
   const session = await getServerSession(options);
