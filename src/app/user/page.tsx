@@ -33,7 +33,7 @@ export default async function User() {
         <h4 className="text-bluePrimary text-xl font-bold">
           {session?.user?.name}
         </h4>
-        <p className="text-lightSecondary text-base font-normal">
+        <p className="text-lightSecondary text-sm font-normal text-zinc-400 r">
           {session?.user?.email}
         </p>
       </div>
