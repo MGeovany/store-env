@@ -1,12 +1,22 @@
 import Link from "next/link";
 import { SignInButton } from "./components/shared/signIn";
+import { getServerSession } from "next-auth";
+import { options } from "./api/auth/[...nextauth]/option";
+import UserCard from "./components/UserCard";
+import { ShareButton } from "./components/shareButton";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(options);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <section className="flex flex-col gap-6">
+        {session ? <UserCard user={session?.user} /> : null}
+      </section>
+
       <div className="flex flex-col gap-8 pb-8 md:gap-16 md:pb-16 xl:pb-24">
-        <div className="flex flex-col items-center justify-center max-w-3xl px-8 mx-auto mt-8 sm:min-h-screen sm:mt-0 sm:px-0">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+        <div className="flex flex-col items-center justify-center max-w-3xl px-8 mx-auto mt-8  sm:mt-0 sm:px-0">
+          <div className="hidden sm:mb-5 sm:flex sm:justify-center">
             <Link
               href="https://github.com/mgeovany/store-env"
               className="text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-orange-500/100 duration-150"
@@ -25,7 +35,7 @@ export default function Home() {
               Store your env files encrypted in your browser.
             </p>
             <div className="flex flex-col justify-center gap-4 mx-auto mt-8 sm:flex-row sm:max-w-lg ">
-              <SignInButton />
+              {session ? <ShareButton /> : <SignInButton />}
             </div>
           </div>
         </div>

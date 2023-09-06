@@ -9,8 +9,8 @@ import Link from "next/link";
 
 import { decodeCompositeKey } from "@/pkg/encoding";
 import { decrypt } from "@/pkg/encryption";
-import { ErrorMessage } from "../components/error";
-import { Title } from "../components/title";
+import { ErrorMessage } from "../components/ErrorMessage";
+import { Title } from "../components/Title";
 
 export default function Unseal() {
   const [compositeKey, setCompositeKey] = useState<string>("");

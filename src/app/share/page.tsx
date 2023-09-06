@@ -10,8 +10,8 @@ import {
 import { toBase58 } from "@/util/base58";
 
 import { encrypt } from "@/pkg/encryption";
-import { Title } from "../components/title";
-import { ErrorMessage } from "../components/error";
+import { Title } from "../components/Title";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
 
