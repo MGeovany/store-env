@@ -5,10 +5,12 @@ const redis = Redis.fromEnv();
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
+  const userId = url.searchParams.get("userId");
+
   if (!id) {
     return new NextResponse("id param is missing", { status: 400 });
   }
-  const key = ["storeenv", id].join(":");
+  const key = ["storeEnv", userId].join(":");
 
   const [data, _] = await Promise.all([
     await redis.hgetall<{
@@ -16,7 +18,7 @@ export async function GET(req: NextRequest) {
       remainingReads: number | null;
       iv: string;
     }>(key),
-    await redis.incr("storeenv:metrics:reads"),
+    await redis.incr("storeEnv:metrics:reads"),
   ]);
   if (!data) {
     return new NextResponse("Not Found", { status: 404 });

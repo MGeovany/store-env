@@ -14,6 +14,9 @@ import { Title } from "../components/Title";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { data } from "autoprefixer";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -26,6 +29,13 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
 
   const [link, setLink] = useState("");
+
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/api/auth/signin?callbackUrl=/");
+    },
+  });
 
   const onSubmit = async () => {
     try {
@@ -42,6 +52,7 @@ export default function Home() {
           reads,
           encrypted: toBase58(encrypted),
           iv: toBase58(iv),
+          userId: session?.user?.email,
         }),
       }).then((r) => r.json())) as { id: string };
 

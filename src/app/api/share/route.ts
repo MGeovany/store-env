@@ -7,29 +7,30 @@ type Request = {
   ttl?: number;
   reads: number;
   iv: string;
+  userId?: string;
 };
 
 const redis = Redis.fromEnv();
 
 export async function POST(req: NextRequest) {
-  const { encrypted, ttl, reads, iv } = (await req.json()) as Request;
+  const { encrypted, ttl, reads, iv, userId } = (await req.json()) as Request;
   const id = generateId();
   console.log(encrypted, ttl, reads, iv, "im REQ");
 
-  const key = ["storeenv", id].join(":");
-  console.log(key, "im KEY");
+  const key = ["storeEnv", userId].join(":");
 
   const tx = redis.multi();
 
-  tx.hset(key, {
+  tx.sadd(key, {
     remainingReads: reads > 0 ? reads : null,
     encrypted,
     iv,
+    id,
   });
   if (ttl) {
     tx.expire(key, ttl);
   }
-  tx.incr("storeenv:metrics:writes");
+  tx.incr("storeEnv:metrics:writes");
 
   await tx.exec();
   return NextResponse.json({ id });
@@ -38,15 +39,3 @@ export async function POST(req: NextRequest) {
 export const config = {
   runtime: "edge",
 };
-
-/* export async function GET() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/todos", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await res.json();
-
-  return NextResponse.json({ data });
-}
- */

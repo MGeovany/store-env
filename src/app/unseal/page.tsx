@@ -11,9 +11,19 @@ import { decodeCompositeKey } from "@/pkg/encoding";
 import { decrypt } from "@/pkg/encryption";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { Title } from "../components/Title";
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Unseal() {
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/api/auth/signin?callbackUrl=/");
+    },
+  });
+  const userId = session?.user?.email;
   const [compositeKey, setCompositeKey] = useState<string>("");
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setCompositeKey(window.location.hash.replace(/^#/, ""));
@@ -37,7 +47,7 @@ export default function Unseal() {
       }
 
       const { id, encryptionKey, version } = decodeCompositeKey(compositeKey);
-      const res = await fetch(`/api/load?id=${id}`);
+      const res = await fetch(`/api/load?id=${id}&userId=${userId}`);
       if (!res.ok) {
         throw new Error(await res.text());
       }
