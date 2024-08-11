@@ -3,6 +3,6 @@ interface DatabaseStructure {
   encrypted: string;
   iv: string;
   id: string;
-  url?: string;
-  date?: Date;
+  url: string;
+  date: Date;
 }
