@@ -16,7 +16,10 @@ export async function GET(req: NextRequest) {
   const members = await redis.smembers(key);
 
   if (!members || members.length === 0) {
-    return new NextResponse("Not Found", { status: 404 });
+    return new NextResponse(
+      "No records! Please start saving your env files. Go to /share",
+      { status: 404 }
+    );
   }
 
   const data = members.map((member) => member);

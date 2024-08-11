@@ -13,15 +13,11 @@ import { formatDistanceToNow } from "date-fns";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { CopyInput } from "../components/CopyInput";
 
-interface OpenStates {
-  [key: string]: boolean;
-}
-
 export default function Saved() {
   const [data, setData] = useState<DatabaseStructure[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [openStates, setOpenStates] = useState<OpenStates>({});
+  const [openStates, setOpenStates] = useState<{ [key: string]: boolean }>({});
 
   const handleOpenChange = (id: string, open: boolean) => {
     setOpenStates((prevStates) => ({
@@ -40,15 +36,17 @@ export default function Saved() {
 
   useEffect(() => {
     async function fetchSaved() {
+      if (!userId) return;
       try {
         setError(null);
         setLoading(true);
 
         const res = await fetch(`/api/saved?userId=${userId}`);
+        console.log(res, "res");
         if (!res.ok) {
           throw new Error(await res.text());
         }
-        const json = (await res.json()) as [DatabaseStructure];
+        const json = (await res.json()) as DatabaseStructure[];
 
         setData(json);
       } catch (e) {
@@ -65,14 +63,16 @@ export default function Saved() {
     <div className="container px-8 mx-auto mt-16 lg:mt-32 ">
       <div className="max-w-4xl mx-auto">
         <Title>Saved Env Files</Title>
-        {error && data === null ? <ErrorMessage message={error} /> : null}
-        <div className="flex justify-center w-full">
-          {loading ? <Cog6ToothIcon className="w-5 h-5 animate-spin" /> : null}
-        </div>
-        {data.length === 0 && (
-          <ErrorMessage
-            message={"Please start saving your env files. Go to /share"}
-          />
+        {loading && (
+          <div className="flex justify-center w-full">
+            <Cog6ToothIcon className="w-5 h-5 animate-spin" />
+          </div>
+        )}
+
+        {!loading && error && <ErrorMessage message={error} />}
+
+        {!loading && !error && data.length === 0 && (
+          <ErrorMessage message={error} />
         )}
         <div className="grid grid-cols-1 gap-4 my-4">
           {data?.map((item) => (
