@@ -7,31 +7,36 @@ export async function GET(req: NextRequest) {
   const id = url.searchParams.get("id");
   const userId = url.searchParams.get("userId");
 
-  if (!id) {
-    return new NextResponse("id param is missing", { status: 400 });
+  if (!userId || !id) {
+    return new NextResponse("Missing userId or id param", { status: 400 });
   }
   const key = ["storeEnv", userId].join(":");
 
-  const [data, _] = await Promise.all([
-    await redis.hgetall<{
-      encrypted: string;
-      remainingReads: number | null;
-      iv: string;
-    }>(key),
-    await redis.incr("storeEnv:metrics:reads"),
-  ]);
-  if (!data) {
-    return new NextResponse("Not Found", { status: 404 });
-  }
-  if (data.remainingReads !== null && data.remainingReads < 1) {
-    await redis.del(key);
+  const members = await redis.smembers(key);
+
+  if (!members || members.length === 0) {
     return new NextResponse("Not Found", { status: 404 });
   }
 
+  const record = members.find((member) => member.id === id);
+
+  if (!record) {
+    return new NextResponse("Record Not Found", { status: 404 });
+  }
+
+  const data = record;
+
+  if (data.remainingReads !== null && data.remainingReads < 1) {
+    await redis.srem(key, record);
+    return new NextResponse("Not Found", { status: 404 });
+  }
   let remainingReads: number | null = null;
+
   if (data.remainingReads !== null) {
-    // Decrement the number of reads and return the remaining reads
-    remainingReads = await redis.hincrby(key, "remainingReads", -1);
+    remainingReads = data.remainingReads - 1;
+    await redis.srem(key, record);
+    data.remainingReads = remainingReads;
+    await redis.sadd(key, JSON.stringify(data));
   }
 
   return NextResponse.json({

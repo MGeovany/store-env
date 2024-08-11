@@ -67,7 +67,7 @@ export default function Unseal() {
 
       setText(decrypted);
     } catch (e) {
-      console.error(e);
+      console.log(e, "err");
       setError((e as Error).message);
     } finally {
       setLoading(false);
@@ -167,7 +167,7 @@ export default function Unseal() {
               type="text"
               name="compositeKey"
               id="compositeKey"
-              className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+              className="outline-none w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
               value={compositeKey}
               onChange={(e) => setCompositeKey(e.target.value)}
             />

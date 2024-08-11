@@ -11,13 +11,17 @@ export async function GET(req: NextRequest) {
     return new NextResponse("userId param is missing", { status: 400 });
   }
 
-  const userHashKeys = await redis.smembers(`storeEnv:${userId}`);
+  const key = ["storeEnv", userId].join(":");
 
-  if (!userHashKeys || userHashKeys.length === 0) {
-    return new NextResponse("No data found for the userId", { status: 404 });
+  const members = await redis.smembers(key);
+
+  if (!members || members.length === 0) {
+    return new NextResponse("Not Found", { status: 404 });
   }
 
-  return NextResponse.json(userHashKeys);
+  const data = members.map((member) => member);
+
+  return NextResponse.json(data);
 }
 
 export const config = {

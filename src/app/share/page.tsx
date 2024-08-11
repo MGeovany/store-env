@@ -16,7 +16,6 @@ import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { data } from "autoprefixer";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -53,6 +52,7 @@ export default function Home() {
           encrypted: toBase58(encrypted),
           iv: toBase58(iv),
           userId: session?.user?.email,
+          encryptionKey: key,
         }),
       }).then((r) => r.json())) as { id: string };
 
@@ -113,7 +113,6 @@ export default function Home() {
           }}
         >
           <Title>Encrypt and Share</Title>
-
           <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
             <div className="flex items-start px-1 text-sm">
               <div
@@ -129,7 +128,6 @@ export default function Home() {
                   </Fragment>
                 ))}
               </div>
-
               <textarea
                 id="text"
                 name="text"
@@ -138,7 +136,7 @@ export default function Home() {
                 onChange={(e) => setText(e.target.value)}
                 rows={Math.max(5, text.split("\n").length)}
                 placeholder="DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none resize-none hover:resize text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="outline-none w-full p-0 text-base bg-transparent border-0 appearance-none resize-none hover:resize text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
               />
             </div>
           </pre>

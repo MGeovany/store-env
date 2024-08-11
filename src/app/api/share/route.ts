@@ -1,32 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { generateId } from "@/pkg/id";
+import { encodeCompositeKey } from "@/pkg/encoding";
+import { LATEST_KEY_VERSION } from "@/pkg/constants";
 
-type Request = {
+interface Request {
   encrypted: string;
   ttl?: number;
   reads: number;
   iv: string;
   userId?: string;
-};
+  encryptionKey: number[];
+}
 
 const redis = Redis.fromEnv();
 
 export async function POST(req: NextRequest) {
-  const { encrypted, ttl, reads, iv, userId } = (await req.json()) as Request;
+  const { encrypted, ttl, reads, iv, userId, encryptionKey } =
+    (await req.json()) as Request;
   const id = generateId();
-  console.log(encrypted, ttl, reads, iv, "im REQ");
+
+  const encryptionKeyUint8Array = new Uint8Array(encryptionKey);
+
+  const encodedUrl = encodeCompositeKey(
+    LATEST_KEY_VERSION,
+    id,
+    encryptionKeyUint8Array
+  );
 
   const key = ["storeEnv", userId].join(":");
 
   const tx = redis.multi();
 
-  tx.sadd(key, {
-    remainingReads: reads > 0 ? reads : null,
-    encrypted,
-    iv,
-    id,
-  });
+  tx.sadd(
+    key,
+    JSON.stringify({
+      remainingReads: reads > 0 ? reads : null,
+      encrypted,
+      iv,
+      id,
+      url: encodedUrl,
+      date: new Date().toISOString(),
+    })
+  );
+
   if (ttl) {
     tx.expire(key, ttl);
   }
