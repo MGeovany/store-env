@@ -157,7 +157,7 @@ export default function Home() {
                 type="number"
                 name="reads"
                 id="reads"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm outline-none"
                 value={reads}
                 onChange={(e) => setReads(e.target.valueAsNumber)}
               />
@@ -173,7 +173,7 @@ export default function Home() {
                 type="number"
                 name="reads"
                 id="reads"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm outline-none"
                 value={ttl}
                 onChange={(e) => setTtl(e.target.valueAsNumber)}
               />
@@ -182,7 +182,7 @@ export default function Home() {
                 <select
                   id="ttlMultiplier"
                   name="ttlMultiplier"
-                  className="h-full py-0 pl-2 bg-transparent border-0 border-transparent rounded pr-7 text-zinc-500 focus:ring-0 sm:text-sm"
+                  className="h-full py-0 pl-2 bg-transparent pr-7 text-zinc-500 focus:ring-0 sm:text-sm outline-none"
                   onChange={(e) => setTtlMultiplier(parseInt(e.target.value))}
                   defaultValue={60 * 60 * 24}
                 >
@@ -219,7 +219,7 @@ export default function Home() {
             <ul className="space-y-2 text-xs text-zinc-500">
               <li>
                 <p>
-                  <span className="font-semibold text-zinc-400">Reads:</span>{" "}
+                  <span className="font-semibold text-zinc-400">Reads:</span>
                   The number of reads determines how often the data can be read,
                   before it deletes itself. 0 means unlimited.
                 </p>

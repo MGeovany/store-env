@@ -12,8 +12,6 @@ export const options: NextAuthOptions = {
   callbacks: {
     async session({ session }) {
       try {
-        /*   const email = session?.user?.email;
-        if (email) await createUser(email); */
       } catch (error) {
         console.error("error from nextAuth on creating user", error);
       }
