@@ -18,7 +18,7 @@ export default async function User() {
     />
   ) : null;
   return (
-    <div className="dark:!bg-navy-800 shadow-shadow-500 shadow-3xl rounded-primary relative mt-32 mx-auto flex h-screen w-full max-w-[550px] flex-col items-center bg-black bg-cover bg-clip-border p-[16px] dark:text-white dark:shadow-none">
+    <div className="dark:!bg-navy-800 shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto w-full max-w-[550px] flex flex-col justify-center items-center bg-black bg-cover bg-clip-border p-[16px] dark:text-white dark:shadow-none md:mt-16">
       <div
         className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover"
         style={{
@@ -29,7 +29,7 @@ export default async function User() {
           {userImage}
         </div>
       </div>
-      <div className="mt-16 flex flex-col items-center">
+      <div className="mt-16 flex flex-col items-center my-4">
         <h4 className="text-bluePrimary text-xl font-bold">
           {session?.user?.name}
         </h4>
@@ -37,7 +37,7 @@ export default async function User() {
           {session?.user?.email}
         </p>
       </div>
-      <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
+      {/*  <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">17</h3>
           <p className="text-lightSecondary text-sm font-normal">Saved</p>
@@ -51,6 +51,7 @@ export default async function User() {
           <p className="text-lightSecondary text-sm font-normal">Seal</p>
         </div>
       </div>
+       */}
       <LogoutButton />
     </div>
   );

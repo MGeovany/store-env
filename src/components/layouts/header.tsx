@@ -13,7 +13,6 @@ export const Header: React.FC = () => {
       name: "Unseal",
       href: "/unseal",
     },
-
     {
       name: "Saved",
       href: "/saved",
