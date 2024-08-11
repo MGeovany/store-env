@@ -67,7 +67,6 @@ export default function Unseal() {
 
       setText(decrypted);
     } catch (e) {
-      console.log(e, "err");
       setError((e as Error).message);
     } finally {
       setLoading(false);
@@ -124,7 +123,7 @@ export default function Unseal() {
               type="button"
               className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded text-zinc-300 border-zinc-300/40 hover:border-zinc-300 focus:outline-none hover:text-white"
             >
-              Share another
+              Encrypt another
             </Link>
             <button
               type="button"

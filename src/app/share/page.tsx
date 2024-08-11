@@ -52,7 +52,7 @@ export default function Home() {
           encrypted: toBase58(encrypted),
           iv: toBase58(iv),
           userId: session?.user?.email,
-          encryptionKey: key,
+          encryptionKey: toBase58(key),
         }),
       }).then((r) => r.json())) as { id: string };
 
@@ -78,7 +78,7 @@ export default function Home() {
 
       {link ? (
         <div className="flex flex-col items-center justify-center w-full h-full mt-8 md:mt-16 xl:mt-32">
-          <Title>Share this link with others</Title>
+          <Title>Now this link is saved and stored</Title>
           <div className="relative flex items-stretch flex-grow mt-16 focus-within:z-10">
             <pre className="px-4 py-3 font-mono text-center bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
               {link}
@@ -112,7 +112,7 @@ export default function Home() {
             onSubmit();
           }}
         >
-          <Title>Encrypt and Share</Title>
+          <Title>Encrypt your secrets</Title>
           <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
             <div className="flex items-start px-1 text-sm">
               <div
@@ -234,7 +234,7 @@ export default function Home() {
               {loading ? (
                 <Cog6ToothIcon className="w-5 h-5 animate-spin" />
               ) : (
-                "Share"
+                "Encrypt"
               )}
             </span>
           </button>
@@ -244,8 +244,8 @@ export default function Home() {
               <li>
                 <p>
                   <span className="font-semibold text-zinc-400">Reads:</span>{" "}
-                  The number of reads determines how often the data can be
-                  shared, before it deletes itself. 0 means unlimited.
+                  The number of reads determines how often the data can be read,
+                  before it deletes itself. 0 means unlimited.
                 </p>
               </li>
               <li>

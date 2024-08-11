@@ -3,6 +3,7 @@ import { Redis } from "@upstash/redis";
 import { generateId } from "@/pkg/id";
 import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
+import { fromBase58 } from "@/util/base58";
 
 interface Request {
   encrypted: string;
@@ -10,7 +11,7 @@ interface Request {
   reads: number;
   iv: string;
   userId?: string;
-  encryptionKey: number[];
+  encryptionKey: string;
 }
 
 const redis = Redis.fromEnv();
@@ -20,13 +21,9 @@ export async function POST(req: NextRequest) {
     (await req.json()) as Request;
   const id = generateId();
 
-  const encryptionKeyUint8Array = new Uint8Array(encryptionKey);
+  const decodedKey = fromBase58(encryptionKey);
 
-  const encodedUrl = encodeCompositeKey(
-    LATEST_KEY_VERSION,
-    id,
-    encryptionKeyUint8Array
-  );
+  const encodedUrl = encodeCompositeKey(LATEST_KEY_VERSION, id, decodedKey);
 
   const key = ["storeEnv", userId].join(":");
 
