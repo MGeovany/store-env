@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-type Props = {
+type ErrorMessageProps = {
   message: string | null;
 };
 
-export const ErrorMessage: FC<Props> = ({ message }) => {
+export const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
   return (
     <div className="flex items-center justify-center my-8 lg:my-16">
       {message && (

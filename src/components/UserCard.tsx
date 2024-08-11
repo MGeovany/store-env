@@ -1,19 +1,13 @@
+import { FC } from "react";
+import { User } from "@/types/user";
 import Image from "next/image";
 import Link from "next/link";
 
-type User =
-  | {
-      name?: string | null | undefined;
-      email?: string | null | undefined;
-      image?: string | null | undefined;
-    }
-  | undefined;
-
-type Props = {
+type UserCardProps = {
   user: User;
 };
 
-export function UserCard({ user }: Props) {
+export const UserCard: FC<UserCardProps> = ({ user }) => {
   const greeting = user?.name ? (
     <div className="flex flex-col items-center text-sm sm:text-base text-zinc-400">
       👋 Hi {user?.name}!
@@ -39,4 +33,4 @@ export function UserCard({ user }: Props) {
       {userImage}
     </section>
   );
-}
+};
