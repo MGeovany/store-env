@@ -16,6 +16,7 @@ import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { CopyInput } from "../components/CopyInput";
 
 export default function Home() {
   const [text, setText] = useState<string>("");
@@ -57,11 +58,7 @@ export default function Home() {
       }).then((r) => r.json())) as { id: string };
 
       const compositeKey = encodeCompositeKey(LATEST_KEY_VERSION, id, key);
-
-      const url = new URL(window.location.href);
-      url.pathname = "/unseal";
-      url.hash = compositeKey;
-      setLink(url.toString());
+      setLink(compositeKey);
 
       setCopied(false);
     } catch (e) {
@@ -79,29 +76,7 @@ export default function Home() {
       {link ? (
         <div className="flex flex-col items-center justify-center w-full h-full mt-8 md:mt-16 xl:mt-32">
           <Title>Now this link is stored</Title>
-          <div className="relative flex items-stretch flex-grow mt-16 focus-within:z-10">
-            <pre className="px-4 py-3 font-mono text-center bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100  border-gradient border-gradient-orange">
-              {link}
-            </pre>
-            <button
-              type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border text-zinc-700 border-zinc-300 rounded-r-md bg-zinc-50 hover focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 hover:text-zinc-900 hover:bg-white"
-              onClick={() => {
-                navigator.clipboard.writeText(link);
-                setCopied(true);
-              }}
-            >
-              {copied ? (
-                <ClipboardDocumentCheckIcon
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                />
-              ) : (
-                <ClipboardDocumentIcon className="w-5 h-5" aria-hidden="true" />
-              )}{" "}
-              <span>{copied ? "Copied" : "Copy"}</span>
-            </button>
-          </div>
+          <CopyInput id={"1"} text={link} gradient />
         </div>
       ) : (
         <form
