@@ -35,7 +35,7 @@ export default async function Home() {
             <p className="mt-6 leading-5 text-zinc-600 sm:text-center">
               Store your env files encrypted in your browser.
             </p>
-            <div className="flex flex-col justify-center gap-4 mx-auto mt-8 sm:flex-row sm:max-w-lg ">
+            <div className="flex flex-col justify-center items-center gap-4 mx-auto mt-8 sm:flex-row sm:max-w-lg ">
               {session ? <ShareButton /> : <SignInButton />}
             </div>
           </div>

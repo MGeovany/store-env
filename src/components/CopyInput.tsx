@@ -35,18 +35,18 @@ export const CopyInput: FC<CopyInputProps> = ({ id, text, gradient }) => {
   };
 
   return (
-    <div className="relative flex items-stretch flex-grow mt-4 focus-within:z-10">
+    <div className=" flex items-stretch flex-grow mt-4 focus-within:z-10">
       <pre
         className={`${
           gradient ? "border-gradient border-gradient-orange " : ""
-        }flex justify-center px-4 py-3 font-mono text-center bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100`}
+        }flex justify-start px-4 py-3 font-mono text-center bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100 w-[200px] md:w-full truncate`}
       >
         {urlPath(text)}
       </pre>
 
       <button
         type="button"
-        className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border text-zinc-700 border-zinc-300 rounded-r-md bg-zinc-50 hover focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 hover:text-zinc-900 hover:bg-white"
+        className=" inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border text-zinc-700 border-zinc-300 rounded-r-md bg-zinc-50 hover focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 hover:text-zinc-900 hover:bg-white"
         onClick={() => handleCopy(id, text)}
       >
         {copiedStates[id] ? (

@@ -83,7 +83,9 @@ export default function Saved() {
             >
               <div className="flex align-middle flex-row justify-between  ">
                 <div>
-                  <h1 className="text-xl font-bold">ID: {item.id}</h1>
+                  <h1 className="text-xl font-bold truncate w-[250px] md:w-full">
+                    ID: {item.id}
+                  </h1>
                   <h2 className="text-sm font-semibold text-zinc-400">
                     {item.createdAt
                       ? `${formatDistanceToNow(item.createdAt)} ago`
