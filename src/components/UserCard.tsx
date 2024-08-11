@@ -13,7 +13,7 @@ type Props = {
   user: User;
 };
 
-export default function Card({ user }: Props) {
+export function UserCard({ user }: Props) {
   const greeting = user?.name ? (
     <div className="flex flex-col items-center text-sm sm:text-base text-zinc-400">
       👋 Hi {user?.name}!

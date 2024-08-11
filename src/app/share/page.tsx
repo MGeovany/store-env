@@ -10,13 +10,14 @@ import {
 import { toBase58 } from "@/util/base58";
 
 import { encrypt } from "@/pkg/encryption";
-import { Title } from "../components/Title";
-import { ErrorMessage } from "../components/ErrorMessage";
+
 import { encodeCompositeKey } from "@/pkg/encoding";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { CopyInput } from "../components/CopyInput";
+import { ErrorMessage } from "@/components/ErrorMessage";
+import { Title } from "@/components/Title";
+import { CopyInput } from "@/components/CopyInput";
 
 export default function Home() {
   const [text, setText] = useState<string>("");

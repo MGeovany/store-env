@@ -9,10 +9,11 @@ import Link from "next/link";
 
 import { decodeCompositeKey } from "@/pkg/encoding";
 import { decrypt } from "@/pkg/encryption";
-import { ErrorMessage } from "../components/ErrorMessage";
-import { Title } from "../components/Title";
+
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { ErrorMessage } from "@/components/ErrorMessage";
+import { Title } from "@/components/Title";
 
 export default function Unseal() {
   const { data: session } = useSession({
@@ -154,7 +155,6 @@ export default function Unseal() {
           }}
         >
           <Title>Decrypt a document</Title>
-
           <div className="px-3 py-2 mt-8 border rounded border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
             <label
               htmlFor="id"
@@ -171,7 +171,6 @@ export default function Unseal() {
               onChange={(e) => setCompositeKey(e.target.value)}
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}

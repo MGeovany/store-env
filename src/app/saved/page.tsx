@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Title } from "../components/Title";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ErrorMessage } from "../components/ErrorMessage";
 import {
   Cog6ToothIcon,
   ChevronDownIcon,
@@ -11,7 +9,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { formatDistanceToNow } from "date-fns";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { CopyInput } from "../components/CopyInput";
+import { Title } from "@/components/Title";
+import { ErrorMessage } from "@/components/ErrorMessage";
+import { CopyInput } from "@/components/CopyInput";
 
 export default function Saved() {
   const [data, setData] = useState<DatabaseStructure[]>([]);
