@@ -31,10 +31,10 @@ export default function Unseal() {
   }, []);
 
   const [text, setText] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [remainingReads, setRemainingReads] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const onSubmit = async () => {
     try {

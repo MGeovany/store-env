@@ -17,7 +17,7 @@ const SignInModal = ({
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [signInClicked, setSignInClicked] = useState(false);
+  const [signInClicked, setSignInClicked] = useState<boolean>(false);
 
   return (
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
@@ -58,7 +58,7 @@ const SignInModal = ({
 };
 
 export function useSignInModal() {
-  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState<boolean>(false);
 
   const SignInModalCallback = useCallback(() => {
     return (

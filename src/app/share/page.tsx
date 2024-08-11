@@ -18,16 +18,16 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  const [text, setText] = useState("");
-  const [reads, setReads] = useState(999);
+  const [text, setText] = useState<string>("");
+  const [reads, setReads] = useState<number>(999);
 
-  const [ttl, setTtl] = useState(7);
-  const [ttlMultiplier, setTtlMultiplier] = useState(60 * 60 * 24);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [ttl, setTtl] = useState<number>(7);
+  const [ttlMultiplier, setTtlMultiplier] = useState<number>(60 * 60 * 24);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [copied, setCopied] = useState<boolean>(false);
 
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState<string>("");
 
   const { data: session } = useSession({
     required: true,
