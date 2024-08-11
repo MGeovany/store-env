@@ -4,5 +4,5 @@ interface DatabaseStructure {
   iv: string;
   id: string;
   url: string;
-  date: Date;
+  createdAt: Date;
 }

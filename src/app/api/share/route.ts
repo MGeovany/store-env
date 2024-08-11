@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       iv,
       id,
       url: encodedUrl,
-      date: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     })
   );
 

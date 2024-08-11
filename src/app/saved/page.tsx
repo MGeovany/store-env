@@ -42,7 +42,6 @@ export default function Saved() {
         setLoading(true);
 
         const res = await fetch(`/api/saved?userId=${userId}`);
-        console.log(res, "res");
         if (!res.ok) {
           throw new Error(await res.text());
         }
@@ -86,7 +85,9 @@ export default function Saved() {
                 <div>
                   <h1 className="text-xl font-bold">ID: {item.id}</h1>
                   <h2 className="text-sm font-semibold text-zinc-400">
-                    {item.date ? `${formatDistanceToNow(item.date)} ago` : null}
+                    {item.createdAt
+                      ? `${formatDistanceToNow(item.createdAt)} ago`
+                      : null}
                   </h2>
                 </div>
                 <Collapsible.Trigger asChild>

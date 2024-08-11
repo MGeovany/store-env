@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
   const key = ["storeEnv", userId].join(":");
 
-  const members = await redis.smembers(key);
+  const members: DatabaseStructure[] = await redis.smembers(key);
 
   if (!members || members.length === 0) {
     return new NextResponse(
@@ -22,7 +22,9 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const data = members.map((member) => member);
+  const data: DatabaseStructure[] = members.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return NextResponse.json(data);
 }
