@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/util/constants";
+import { BASE_URL } from "@/pkg/constants";
 import {
   ClipboardDocumentCheckIcon,
   ClipboardDocumentIcon,

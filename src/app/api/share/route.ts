@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { generateId } from "@/pkg/id";
 import { encodeCompositeKey } from "@/pkg/encoding";
-import { LATEST_KEY_VERSION } from "@/pkg/constants";
+import { DB_PREFIX, LATEST_KEY_VERSION } from "@/pkg/constants";
 import { fromBase58 } from "@/util/base58";
 
 interface Request {
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   const encodedUrl = encodeCompositeKey(LATEST_KEY_VERSION, id, decodedKey);
 
-  const key = ["storeEnv", userId].join(":");
+  const key = [DB_PREFIX, userId].join(":");
 
   const tx = redis.multi();
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   if (ttl) {
     tx.expire(key, ttl);
   }
-  tx.incr("storeEnv:metrics:writes");
+  tx.incr(`${DB_PREFIX}:metrics:writes`);
 
   await tx.exec();
   return NextResponse.json({ id });

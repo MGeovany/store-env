@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
+import { MESSAGES } from "@/pkg/message";
+import { DB_PREFIX } from "@/pkg/constants";
 
 const redis = Redis.fromEnv();
 
@@ -8,18 +10,15 @@ export async function GET(req: NextRequest) {
   const userId = url.searchParams.get("userId");
 
   if (!userId) {
-    return new NextResponse("userId param is missing", { status: 400 });
+    return new NextResponse(MESSAGES.missingUserIdOrIdError, { status: 400 });
   }
 
-  const key = ["storeEnv", userId].join(":");
+  const key = [DB_PREFIX, userId].join(":");
 
   const members: DatabaseStructure[] = await redis.smembers(key);
 
   if (!members || members.length === 0) {
-    return new NextResponse(
-      "No records! Please start saving your env files. Go to /share",
-      { status: 404 }
-    );
+    return new NextResponse(MESSAGES.noRecordsMessage, { status: 404 });
   }
 
   const data: DatabaseStructure[] = members.sort(

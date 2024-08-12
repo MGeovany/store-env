@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/option";
 import { ShareButton } from "@/components/ShareButton";
@@ -10,11 +9,10 @@ export default async function Home() {
   const session = await getServerSession(options);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <section className="flex flex-col gap-6">
+    <main className="flex flex-col items-center justify-center px-24 ">
+      <section className="flex flex-col gap-6 my-4">
         {session ? <UserCard user={session?.user} /> : null}
       </section>
-
       <div className="flex flex-col gap-8 pb-8 md:gap-16 md:pb-16 xl:pb-24">
         <div className="flex flex-col items-center justify-center max-w-3xl px-8 mx-auto mt-8  sm:mt-0 sm:px-0">
           <div className="hidden sm:mb-5 sm:flex sm:justify-center">
