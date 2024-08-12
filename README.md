@@ -2,11 +2,10 @@
 
 - [Next.js](https://nextjs.org/) – React framework for building performant apps with the best developer experience.
 - [Auth.js](https://authjs.dev/) – Handle user authentication with ease with providers like Google, Twitter, GitHub, etc.
-- [@upstash/redis](https://upstash.com/) – Serverless database with Redis API.
 
 
 #### Platforms
-
+- [@upstash/redis](https://upstash.com/) – Serverless database with Redis API.
 - [Vercel](https://vercel.com/) – Easily preview & deploy changes with git.
 
 #### UI
