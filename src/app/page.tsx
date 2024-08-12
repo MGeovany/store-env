@@ -9,7 +9,7 @@ export default async function Home() {
   const session = await getServerSession(options);
 
   return (
-    <main className="flex flex-col items-center justify-center px-24 ">
+    <div className="flex flex-col items-center justify-center px-24 ">
       <section className="flex flex-col gap-6 my-4">
         {session ? <UserCard user={session?.user} /> : null}
       </section>
@@ -39,6 +39,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
