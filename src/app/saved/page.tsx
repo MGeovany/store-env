@@ -14,7 +14,7 @@ import { ErrorMessage } from "@/components/ErrorMessage";
 import { CopyInput } from "@/components/CopyInput";
 
 export default function Saved() {
-  const [data, setData] = useState<DatabaseStructure[]>([]);
+  const [data, setData] = useState<DatabaseRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [openStates, setOpenStates] = useState<{ [key: string]: boolean }>({});
@@ -45,7 +45,7 @@ export default function Saved() {
         if (!res.ok) {
           throw new Error(await res.text());
         }
-        const json = (await res.json()) as DatabaseStructure[];
+        const json = (await res.json()) as DatabaseRecord[];
 
         setData(json);
       } catch (e) {

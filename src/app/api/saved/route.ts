@@ -15,13 +15,13 @@ export async function GET(req: NextRequest) {
 
   const key = [DB_PREFIX, userId].join(":");
 
-  const members: DatabaseStructure[] = await redis.smembers(key);
+  const members: DatabaseRecord[] = await redis.smembers(key);
 
   if (!members || members.length === 0) {
     return new NextResponse(MESSAGES.noRecordsMessage, { status: 404 });
   }
 
-  const data: DatabaseStructure[] = members.sort(
+  const data: DatabaseRecord[] = members.sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 

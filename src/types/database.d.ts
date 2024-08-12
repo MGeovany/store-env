@@ -1,4 +1,4 @@
-interface DatabaseStructure {
+interface DatabaseRecord {
   remainingReads: number | null;
   encrypted: string;
   iv: string;
