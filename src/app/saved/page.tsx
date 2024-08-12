@@ -104,6 +104,18 @@ export default function Saved() {
               </div>
               <Collapsible.Content>
                 <CopyInput id={item.id} text={item.url} />
+                <div className="my-2 text-sm text-zinc-600">
+                  {item.remainingReads ? (
+                    <>
+                      Remaining Reads:{" "}
+                      <span className="text-zinc-200">
+                        {item.remainingReads}
+                      </span>
+                    </>
+                  ) : (
+                    "No remaining reads"
+                  )}
+                </div>
               </Collapsible.Content>
             </Collapsible.Root>
           ))}
