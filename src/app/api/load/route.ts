@@ -49,7 +49,3 @@ export async function GET(req: NextRequest) {
     remainingReads,
   });
 }
-
-export const config = {
-  runtime: "edge",
-};

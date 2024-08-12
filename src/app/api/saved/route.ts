@@ -27,7 +27,3 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json(data);
 }
-
-export const config = {
-  runtime: "edge",
-};

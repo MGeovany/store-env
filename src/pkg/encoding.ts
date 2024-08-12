@@ -12,10 +12,14 @@ export function encodeCompositeKey(
   if (version < 0 || version > 255) {
     throw new Error("Version must fit in a byte");
   }
+
+  const idArray = Array.from(fromBase58(id));
+  const encryptionKeyArray = Array.from(encryptionKey);
+
   const compositeKey = new Uint8Array([
     version,
-    ...fromBase58(id),
-    ...encryptionKey,
+    ...idArray,
+    ...encryptionKeyArray,
   ]);
 
   return toBase58(compositeKey);

@@ -49,7 +49,3 @@ export async function POST(req: NextRequest) {
   await tx.exec();
   return NextResponse.json({ id });
 }
-
-export const config = {
-  runtime: "edge",
-};
