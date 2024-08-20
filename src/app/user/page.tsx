@@ -11,8 +11,8 @@ export default async function User() {
     <Image
       className="h-full w-full rounded-full"
       src={session?.user?.image}
-      width={100}
-      height={100}
+      width={60}
+      height={60}
       alt={session?.user?.name ?? "Profile Pic"}
       priority={true}
     />
@@ -25,7 +25,7 @@ export default async function User() {
           backgroundImage: 'url("https://i.ibb.co/FWggPq1/banner.png")',
         }}
       >
-        <div className="absolute -bottom-12 flex h-[100px] w-[100px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400">
+        <div className="absolute -bottom-12 flex h-[70px] w-[70px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400">
           {userImage}
         </div>
       </div>

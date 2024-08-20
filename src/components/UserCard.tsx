@@ -19,8 +19,8 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
       <Image
         className="rounded-full mx-auto mt-5 ring-1 ring-orange-500/100 duration-150"
         src={user?.image}
-        width={150}
-        height={150}
+        width={60}
+        height={60}
         alt={user?.name ?? "Profile Pic"}
         priority={true}
       />
